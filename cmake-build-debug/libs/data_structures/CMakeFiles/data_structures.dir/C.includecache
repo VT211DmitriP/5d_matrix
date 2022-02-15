@@ -13,8 +13,6 @@ stdio.h
 D:/5d_matrix/libs/data_structures/matrix/matrix.c
 stdio.h
 -
-stdint.h
--
 malloc.h
 -
 matrix.h

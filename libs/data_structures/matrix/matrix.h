@@ -40,7 +40,7 @@ void swapColumns(matrix m, int j1, int j2);
 
 void insertionSortRowsMatrixByRowCriteria(matrix m, int (*criteria)(int *, int));
 
-//
+void insertionSortColsMatrixByColCriteria(matrix m, int (*criteria)(int*, int));
 
 bool isSquareMatrix(matrix m);
 
@@ -55,5 +55,9 @@ void transposeSquareMatrix(matrix m);
 position getMinValuePos(matrix m);
 
 position getMaxValuePos(matrix m);
+
+matrix createMatrixFromArray(const int *a, int nRows, int nCols);
+
+matrix *createArrayOfMatrixFromArray(const int *values, int nMatrices, int nRows, int nCols);
 
 #endif

@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdint.h>
 #include <malloc.h>
 
 #include "matrix.h"
@@ -72,10 +71,35 @@ void swapColumns(matrix m, int j1, int j2) {
 }
 
 void insertionSortRowsMatrixByRowCriteria(matrix m, int (*criteria)(int *, int)) {
+    int rowsCriteria[m.nRows];
+    for (int i = 0; i < m.nRows; i++)
+        rowsCriteria[i] = criteria(m.values[i], m.nCols);
 
+    for (int i = 1; i < m.nRows; i++) {
+        for (int j = i; j > 0 && rowsCriteria[j - 1] > rowsCriteria[j]; j--) {
+            swap(&rowsCriteria[j - 1], &rowsCriteria[j], sizeof(int));
+            swapRows(m, j, j - 1);
+        }
+    }
 }
 
-//
+void insertionSortColsMatrixByColCriteria(matrix m, int (*criteria)(int*, int)) {
+    int colsCriteria[m.nCols];
+    for (int i = 0; i < m.nCols; i++) {
+        int colsElement[m.nRows];
+        for (int j = 0; j < m.nRows; j++)
+            colsElement[j] = m.values[j][i];
+
+        colsCriteria[i] = criteria(colsElement, m.nRows);
+    }
+
+    for (int i = 1; i < m.nCols; i++) {
+        for (int j = i; j > 0 && colsCriteria[j - 1] > colsCriteria[j]; j--) {
+            swap(&colsCriteria[j - 1], &colsCriteria[j], sizeof(int));
+            swapColumns(m, j, j - 1);
+        }
+    }
+}
 
 bool isSquareMatrix(matrix m) {
     return m.nRows == m.nCols;
@@ -157,4 +181,27 @@ position getMaxValuePos(matrix m) {
         }
     }
     return maxPosition;
+}
+
+matrix createMatrixFromArray(const int *a, int nRows, int nCols) {
+    matrix m = getMemMatrix(nRows, nCols);
+
+    int k = 0;
+    for (int i = 0; i < nRows; i++)
+        for (int j = 0; j < nCols; j++)
+            m.values[i][j] = a[k++];
+    return m;
+}
+
+matrix *createArrayOfMatrixFromArray(const int *values, int nMatrices, int nRows, int nCols) {
+
+    matrix *ms = getMemArrayOfMatrices(nMatrices, nRows, nCols);
+
+    int l = 0;
+    for (int k = 0; k < nMatrices; k++)
+        for (int i = 0; i < nRows; i++)
+            for (int j = 0; j < nCols; j++)
+                ms[k].values[i][j] = values[l++];
+
+    return ms;
 }
