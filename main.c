@@ -486,7 +486,7 @@ void test_isMutuallyInverseMatrices_matrixThreeOnThreeProduceIsEMatrix() {
     freeMemMatrix(&m2);
 }
 
-void test_isMutuallyInverseMatrices_MatrixFourOnFourProduceIsEMatrix() {
+void test_isMutuallyInverseMatrices_matrixFourOnFourProduceIsEMatrix() {
     matrix m1 = createMatrixFromArray(
             (int[]) {
                     2, 1, 0, 0,
@@ -511,7 +511,7 @@ void test_isMutuallyInverseMatrices_MatrixFourOnFourProduceIsEMatrix() {
     freeMemMatrix(&m2);
 }
 
-void test_isMutuallyInverseMatrices_MatrixTwoOnTwoProduceIsNotEMatrix() {
+void test_isMutuallyInverseMatrices_matrixTwoOnTwoProduceIsNotEMatrix() {
     matrix m1 = createMatrixFromArray(
             (int[]) {
                     3, 4,
@@ -532,7 +532,7 @@ void test_isMutuallyInverseMatrices_MatrixTwoOnTwoProduceIsNotEMatrix() {
     freeMemMatrix(&m2);
 }
 
-void test_isMutuallyInverseMatrices_MatrixThreeOnThreeProduceIsNotEMatrix() {
+void test_isMutuallyInverseMatrices_matrixThreeOnThreeProduceIsNotEMatrix() {
     matrix m1 = createMatrixFromArray(
             (int[]) {
                     2, 5, 7,
@@ -555,7 +555,7 @@ void test_isMutuallyInverseMatrices_MatrixThreeOnThreeProduceIsNotEMatrix() {
     freeMemMatrix(&m2);
 }
 
-void test_isMutuallyInverseMatrices_MatrixFourOnFourProduceIsNotEMatrix() {
+void test_isMutuallyInverseMatrices_matrixFourOnFourProduceIsNotEMatrix() {
     matrix m1 = createMatrixFromArray(
             (int[]) {
                     2, 1, 0, 1,
@@ -583,10 +583,10 @@ void test_isMutuallyInverseMatrices_MatrixFourOnFourProduceIsNotEMatrix() {
 void test_isMutuallyInverseMatrices() {
     test_isMutuallyInverseMatrices_matrixTwoOnTwoProduceIsEMatrix();
     test_isMutuallyInverseMatrices_matrixThreeOnThreeProduceIsEMatrix();
-    test_isMutuallyInverseMatrices_MatrixFourOnFourProduceIsEMatrix();
-    test_isMutuallyInverseMatrices_MatrixTwoOnTwoProduceIsNotEMatrix();
-    test_isMutuallyInverseMatrices_MatrixThreeOnThreeProduceIsNotEMatrix();
-    test_isMutuallyInverseMatrices_MatrixFourOnFourProduceIsNotEMatrix();
+    test_isMutuallyInverseMatrices_matrixFourOnFourProduceIsEMatrix();
+    test_isMutuallyInverseMatrices_matrixTwoOnTwoProduceIsNotEMatrix();
+    test_isMutuallyInverseMatrices_matrixThreeOnThreeProduceIsNotEMatrix();
+    test_isMutuallyInverseMatrices_matrixFourOnFourProduceIsNotEMatrix();
 }
 
 
