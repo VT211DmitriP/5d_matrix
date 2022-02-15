@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+D:/5d_matrix/libs/algorithms/algorithm.c
+algorithm.h
+D:/5d_matrix/libs/algorithms/algorithm.h
+
+D:/5d_matrix/libs/algorithms/algorithm.h
+stdio.h
+-
+
