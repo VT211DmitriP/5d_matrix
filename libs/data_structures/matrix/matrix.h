@@ -3,6 +3,7 @@
 #include <assert.h>
 
 #include "../../algorithms/algorithm.h"
+#include "../../algorithms/array/array.h"
 
 #ifndef INC_5D_MATRIX_MATRIX_H
 #define INC_5D_MATRIX_MATRIX_H

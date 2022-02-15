@@ -9,9 +9,11 @@ CMakeFiles/5d_matrix.dir/libs/algorithms/array/array.c.obj: \
  ../libs/algorithms/array/array.h
 CMakeFiles/5d_matrix.dir/libs/data_structures/matrix/matrix.c.obj: \
  ../libs/algorithms/algorithm.h \
+ ../libs/algorithms/array/array.h \
  ../libs/data_structures/matrix/matrix.c \
  ../libs/data_structures/matrix/matrix.h
 CMakeFiles/5d_matrix.dir/main.c.obj: \
  ../libs/algorithms/algorithm.h \
+ ../libs/algorithms/array/array.h \
  ../libs/data_structures/matrix/matrix.h \
  ../main.c

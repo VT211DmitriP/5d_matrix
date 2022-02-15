@@ -10,6 +10,10 @@ D:/5d_matrix/libs/algorithms/algorithm.h
 stdio.h
 -
 
+D:/5d_matrix/libs/algorithms/array/array.h
+stddef.h
+-
+
 D:/5d_matrix/libs/data_structures/matrix/matrix.c
 stdio.h
 -
@@ -27,4 +31,6 @@ assert.h
 -
 ../../algorithms/algorithm.h
 D:/5d_matrix/libs/algorithms/algorithm.h
+../../algorithms/array/array.h
+D:/5d_matrix/libs/algorithms/array/array.h
 
