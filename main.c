@@ -436,6 +436,160 @@ void test_transposeIfMatrixHasNotEqualSumOfRows() {
     test_transposeIfMatrixHasNotEqualSumOfRows_lastsSumIsEqual();
 }
 
+//__________ task 6 __________\\
+
+bool isMutuallyInverseMatrices(matrix m1, matrix m2) {
+    return isEMatrix(mulMatrices(m1, m2));
+}
+
+void test_isMutuallyInverseMatrices_matrixTwoOnTwoProduceIsEMatrix() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    3, 4,
+                    5, 7
+            },
+            2, 2);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    7, -4,
+                    -5, 3
+            },
+            2, 2);
+
+    assert(isMutuallyInverseMatrices(m1, m2));
+
+    freeMemMatrix(&m1);
+    freeMemMatrix(&m2);
+}
+
+void test_isMutuallyInverseMatrices_matrixThreeOnThreeProduceIsEMatrix() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    2, 5, 7,
+                    6, 3, 4,
+                    5, -2, -3
+            },
+            3, 3);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    1, -1, 1,
+                    -38, 41, -34,
+                    27, -29, 24
+            },
+            3, 3);
+
+    assert(isMutuallyInverseMatrices(m1, m2));
+
+    freeMemMatrix(&m1);
+    freeMemMatrix(&m2);
+}
+
+void test_isMutuallyInverseMatrices_MatrixFourOnFourProduceIsEMatrix() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    2, 1, 0, 0,
+                    3, 2, 0, 0,
+                    1, 1, 3, 4,
+                    2, -1, 2, 3
+            },
+            4, 4);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    2, -1, 0, 0,
+                    -3, 2, 0, 0,
+                    31, -19, 3, -4,
+                    -23, 14, -2, 3
+            },
+            4, 4);
+
+    assert(isMutuallyInverseMatrices(m1, m2));
+
+    freeMemMatrix(&m1);
+    freeMemMatrix(&m2);
+}
+
+void test_isMutuallyInverseMatrices_MatrixTwoOnTwoProduceIsNotEMatrix() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    3, 4,
+                    5, 7
+            },
+            2, 2);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    7, 4,
+                    -5, 3
+            },
+            2, 2);
+
+    assert(!isMutuallyInverseMatrices(m1, m2));
+
+    freeMemMatrix(&m1);
+    freeMemMatrix(&m2);
+}
+
+void test_isMutuallyInverseMatrices_MatrixThreeOnThreeProduceIsNotEMatrix() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    2, 5, 7,
+                    6, 3, 4,
+                    5, -2, -3
+            },
+            3, 3);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    1, -1, -1,
+                    -38, 41, -34,
+                    27, -29, 24
+            },
+            3, 3);
+
+    assert(!isMutuallyInverseMatrices(m1, m2));
+
+    freeMemMatrix(&m1);
+    freeMemMatrix(&m2);
+}
+
+void test_isMutuallyInverseMatrices_MatrixFourOnFourProduceIsNotEMatrix() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    2, 1, 0, 1,
+                    3, 2, 0, 0,
+                    1, 1, 3, 4,
+                    2, -1, 2, 3
+            },
+            4, 4);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    1, -1, 0, 0,
+                    -3, 2, 0, 0,
+                    31, -19, 3, -4,
+                    -23, 14, -2, 3
+            },
+            4, 4);
+
+    assert(!isMutuallyInverseMatrices(m1, m2));
+
+    freeMemMatrix(&m1);
+    freeMemMatrix(&m2);
+}
+
+void test_isMutuallyInverseMatrices() {
+    test_isMutuallyInverseMatrices_matrixTwoOnTwoProduceIsEMatrix();
+    test_isMutuallyInverseMatrices_matrixThreeOnThreeProduceIsEMatrix();
+    test_isMutuallyInverseMatrices_MatrixFourOnFourProduceIsEMatrix();
+    test_isMutuallyInverseMatrices_MatrixTwoOnTwoProduceIsNotEMatrix();
+    test_isMutuallyInverseMatrices_MatrixThreeOnThreeProduceIsNotEMatrix();
+    test_isMutuallyInverseMatrices_MatrixFourOnFourProduceIsNotEMatrix();
+}
+
+
 
 
 
@@ -446,6 +600,7 @@ void test() {
     test_sortColsByMinElement();
     test_getSquareOfMatrixIfSymmetric();
     test_transposeIfMatrixHasNotEqualSumOfRows();
+    test_isMutuallyInverseMatrices();
 }
 
 int main() {
