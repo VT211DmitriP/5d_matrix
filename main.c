@@ -1,7 +1,10 @@
 #include "libs/data_structures/matrix/matrix.h"
+#include "libs/data_structures/matrix/matrixTest.h"
 #include <stdlib.h>
 //__________ task 1 __________\\
 
+// меняет местами строки матрицы m,
+// в которых находятся максимальный и минимальный элементы
 void swapRowsWithMaxAndMinElement(matrix m) {
     position minPosition = getMinValuePos(m);
     position maxPosition = getMaxValuePos(m);
@@ -62,6 +65,7 @@ void test_swapRowsWithMaxAndMinElement() {
 
 //__________ task 2 __________\\
 
+// возвращает максимальное значение массива a размера n
 int getMax(int *a, int n) {
     int max = a[0];
     for (int i = 1; i < n; i++) {
@@ -71,6 +75,7 @@ int getMax(int *a, int n) {
     return max;
 }
 
+// сортирует строки матрицы m по неубыванию наибольших элементов строк
 void sortRowsByMinElement(matrix m) {
     insertionSortRowsMatrixByRowCriteria(m, getMax);
 }
@@ -178,6 +183,7 @@ void test_sortRowsByMinElement() {
 
 //__________ task 3 __________\\
 
+// возвращает минимальное значение массива a размера n
 int getMin(int *a, int n) {
     int min = a[0];
     for (int i = 1; i < n; i++) {
@@ -187,6 +193,8 @@ int getMin(int *a, int n) {
     return min;
 }
 
+// сортирует столбцы матрицы m по неубыванию
+//минимальных элементов столбцов
 void sortColsByMinElement(matrix m) {
     insertionSortColsMatrixByColCriteria(m, getMin);
 }
@@ -322,6 +330,7 @@ void test_sortColsByMinElement() {
 
 //__________ task 4 __________\\
 
+// возвращает произведение матрицы m1 на матрицу m2
 matrix mulMatrices(matrix m1, matrix m2) {
     if (m1.nCols != m2.nRows) {
         fprintf(stderr, "multiplication is not possible");
@@ -340,6 +349,7 @@ matrix mulMatrices(matrix m1, matrix m2) {
     return mulMatrix;
 }
 
+// Если данная квадратная матрица m симметрична, то заменяет m ее квадратом m^2
 void getSquareOfMatrixIfSymmetric(matrix *m) {
     if (isSymmetricMatrix(*m))
         *m = mulMatrices(*m, *m);
@@ -476,6 +486,8 @@ void test_getSquareOfMatrixIfSymmetric() {
 
 //__________ task 5 __________\\
 
+// возвращает значение 'истина', если все элементы
+// массива a размера n, иначе 'ложь'
 bool isUnique(long long *a, int n) {
     qsort(a, n, sizeof(long long), compare_ints);
 
@@ -486,7 +498,7 @@ bool isUnique(long long *a, int n) {
     return true;
 }
 
-
+// возвращает сумму элементов массива a размера n
 long long getSum(int *a, int n) {
     long long sum = 0;
     for (int i = 0; i < n; i++) {
@@ -495,6 +507,7 @@ long long getSum(int *a, int n) {
     return sum;
 }
 
+//транспонирует матрицу m, если среди сумм элементов строк матрицы нет равных
 void transposeIfMatrixHasNotEqualSumOfRows(matrix m) {
     long long sumColsElement[m.nRows];
     for (int i = 0; i < m.nRows; i++)
@@ -610,6 +623,8 @@ void test_transposeIfMatrixHasNotEqualSumOfRows() {
 
 //__________ task 6 __________\\
 
+// возвращает значение 'истина', если матрица m1 и матрица m2
+// взаимно обратны, иначе 'ложь'
 bool isMutuallyInverseMatrices(matrix m1, matrix m2) {
     return isEMatrix(mulMatrices(m1, m2));
 }
@@ -763,10 +778,14 @@ void test_isMutuallyInverseMatrices() {
 
 //__________ task 7 __________\\
 
+// возвращает максимальное значение из двух
+// переменных a и b
 int max(int a, int b) {
     return a > b ? a : b;
 }
 
+// возвращает максимальное значение псевдодиагонали матрицы m
+// начиная с элемента a[indexRow][indexCol]
 int getMaxElementDiagonal(matrix m, int indexRow, int indexCol) {
     int maxValue = m.values[indexRow][indexCol];
     while (indexRow < m.nRows && indexCol < m.nCols)
@@ -774,6 +793,8 @@ int getMaxElementDiagonal(matrix m, int indexRow, int indexCol) {
     return maxValue;
 }
 
+// возвращает сумму максимальных элементов всех
+// псевдодиагоналей данной матрицы m
 long long findSumOfMaxesOfPseudoDiagonal(matrix m) {
     int sumMAxDiagonal = 0;
     for (int i = 1; i < m.nRows; i++)
@@ -933,10 +954,16 @@ void test_findSumOfMaxesOfPseudoDiagonal() {
 
 //__________ task 8 __________\\
 
+// возвращает минимальное значение из двух
+// переменных a и b
 int min(int a, int b) {
     return a > b ? b : a;
 }
 
+// возвращает минимальный элемент матрицы m в выделенной области:
+// максимальное значение матрицы - начало выделенной области,
+// выделенная область идет до границ матрицы слева и справа
+// по диагонали от начала выделенной области
 int getMinInArea(matrix m) {
     position startPosition = getMaxValuePos(m);
     int minElement = m.values[startPosition.rowIndex][startPosition.colIndex];
@@ -1077,6 +1104,7 @@ void test() {
 }
 
 int main() {
+    testMatrix();
     test();
 
     return 0;

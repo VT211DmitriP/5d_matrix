@@ -167,6 +167,12 @@
 		<Unit filename="D:/5d_matrix/libs/data_structures/matrix/matrix.h">
 			<Option target="5d_matrix"/>
 		</Unit>
+		<Unit filename="D:/5d_matrix/libs/data_structures/matrix/matrixTest.c">
+			<Option target="data_structures"/>
+		</Unit>
+		<Unit filename="D:/5d_matrix/libs/data_structures/matrix/matrixTest.h">
+			<Option target="data_structures"/>
+		</Unit>
 		<Unit filename="D:/5d_matrix/main.c">
 			<Option target="5d_matrix"/>
 		</Unit>

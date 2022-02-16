@@ -78,17 +78,32 @@ libs/data_structures/CMakeFiles/data_structures.dir/matrix/matrix.c.s: cmake_for
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/data_structures.dir/matrix/matrix.c.s"
 	cd /d D:\5d_matrix\cmake-build-debug\libs\data_structures && C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\5d_matrix\libs\data_structures\matrix\matrix.c -o CMakeFiles\data_structures.dir\matrix\matrix.c.s
 
+libs/data_structures/CMakeFiles/data_structures.dir/matrix/matrixTest.c.obj: libs/data_structures/CMakeFiles/data_structures.dir/flags.make
+libs/data_structures/CMakeFiles/data_structures.dir/matrix/matrixTest.c.obj: ../libs/data_structures/matrix/matrixTest.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\5d_matrix\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object libs/data_structures/CMakeFiles/data_structures.dir/matrix/matrixTest.c.obj"
+	cd /d D:\5d_matrix\cmake-build-debug\libs\data_structures && C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\data_structures.dir\matrix\matrixTest.c.obj -c D:\5d_matrix\libs\data_structures\matrix\matrixTest.c
+
+libs/data_structures/CMakeFiles/data_structures.dir/matrix/matrixTest.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/data_structures.dir/matrix/matrixTest.c.i"
+	cd /d D:\5d_matrix\cmake-build-debug\libs\data_structures && C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\5d_matrix\libs\data_structures\matrix\matrixTest.c > CMakeFiles\data_structures.dir\matrix\matrixTest.c.i
+
+libs/data_structures/CMakeFiles/data_structures.dir/matrix/matrixTest.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/data_structures.dir/matrix/matrixTest.c.s"
+	cd /d D:\5d_matrix\cmake-build-debug\libs\data_structures && C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\5d_matrix\libs\data_structures\matrix\matrixTest.c -o CMakeFiles\data_structures.dir\matrix\matrixTest.c.s
+
 # Object files for target data_structures
 data_structures_OBJECTS = \
-"CMakeFiles/data_structures.dir/matrix/matrix.c.obj"
+"CMakeFiles/data_structures.dir/matrix/matrix.c.obj" \
+"CMakeFiles/data_structures.dir/matrix/matrixTest.c.obj"
 
 # External object files for target data_structures
 data_structures_EXTERNAL_OBJECTS =
 
 libs/data_structures/libdata_structures.a: libs/data_structures/CMakeFiles/data_structures.dir/matrix/matrix.c.obj
+libs/data_structures/libdata_structures.a: libs/data_structures/CMakeFiles/data_structures.dir/matrix/matrixTest.c.obj
 libs/data_structures/libdata_structures.a: libs/data_structures/CMakeFiles/data_structures.dir/build.make
 libs/data_structures/libdata_structures.a: libs/data_structures/CMakeFiles/data_structures.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=D:\5d_matrix\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking C static library libdata_structures.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=D:\5d_matrix\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking C static library libdata_structures.a"
 	cd /d D:\5d_matrix\cmake-build-debug\libs\data_structures && $(CMAKE_COMMAND) -P CMakeFiles\data_structures.dir\cmake_clean_target.cmake
 	cd /d D:\5d_matrix\cmake-build-debug\libs\data_structures && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\data_structures.dir\link.txt --verbose=$(VERBOSE)
 

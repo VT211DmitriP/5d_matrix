@@ -16,4 +16,5 @@ CMakeFiles/5d_matrix.dir/main.c.obj: \
  ../libs/algorithms/algorithm.h \
  ../libs/algorithms/array/array.h \
  ../libs/data_structures/matrix/matrix.h \
+ ../libs/data_structures/matrix/matrixTest.h \
  ../main.c

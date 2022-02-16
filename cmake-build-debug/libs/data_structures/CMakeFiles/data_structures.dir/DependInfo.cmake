@@ -9,6 +9,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
   "D:/5d_matrix/libs/data_structures/matrix/matrix.c" "D:/5d_matrix/cmake-build-debug/libs/data_structures/CMakeFiles/data_structures.dir/matrix/matrix.c.obj"
+  "D:/5d_matrix/libs/data_structures/matrix/matrixTest.c" "D:/5d_matrix/cmake-build-debug/libs/data_structures/CMakeFiles/data_structures.dir/matrix/matrixTest.c.obj"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 

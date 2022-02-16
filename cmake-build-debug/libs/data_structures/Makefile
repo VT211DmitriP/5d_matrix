@@ -153,6 +153,30 @@ matrix/matrix.c.s:
 	cd /d D:\5d_matrix\cmake-build-debug && $(MAKE) $(MAKESILENT) -f libs\data_structures\CMakeFiles\data_structures.dir\build.make libs/data_structures/CMakeFiles/data_structures.dir/matrix/matrix.c.s
 .PHONY : matrix/matrix.c.s
 
+matrix/matrixTest.obj: matrix/matrixTest.c.obj
+.PHONY : matrix/matrixTest.obj
+
+# target to build an object file
+matrix/matrixTest.c.obj:
+	cd /d D:\5d_matrix\cmake-build-debug && $(MAKE) $(MAKESILENT) -f libs\data_structures\CMakeFiles\data_structures.dir\build.make libs/data_structures/CMakeFiles/data_structures.dir/matrix/matrixTest.c.obj
+.PHONY : matrix/matrixTest.c.obj
+
+matrix/matrixTest.i: matrix/matrixTest.c.i
+.PHONY : matrix/matrixTest.i
+
+# target to preprocess a source file
+matrix/matrixTest.c.i:
+	cd /d D:\5d_matrix\cmake-build-debug && $(MAKE) $(MAKESILENT) -f libs\data_structures\CMakeFiles\data_structures.dir\build.make libs/data_structures/CMakeFiles/data_structures.dir/matrix/matrixTest.c.i
+.PHONY : matrix/matrixTest.c.i
+
+matrix/matrixTest.s: matrix/matrixTest.c.s
+.PHONY : matrix/matrixTest.s
+
+# target to generate assembly for a file
+matrix/matrixTest.c.s:
+	cd /d D:\5d_matrix\cmake-build-debug && $(MAKE) $(MAKESILENT) -f libs\data_structures\CMakeFiles\data_structures.dir\build.make libs/data_structures/CMakeFiles/data_structures.dir/matrix/matrixTest.c.s
+.PHONY : matrix/matrixTest.c.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -165,6 +189,9 @@ help:
 	@echo ... matrix/matrix.obj
 	@echo ... matrix/matrix.i
 	@echo ... matrix/matrix.s
+	@echo ... matrix/matrixTest.obj
+	@echo ... matrix/matrixTest.i
+	@echo ... matrix/matrixTest.s
 .PHONY : help
 
 

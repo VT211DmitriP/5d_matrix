@@ -6,3 +6,9 @@ libs/data_structures/CMakeFiles/data_structures.dir/matrix/matrix.c.obj: \
  ../libs/algorithms/array/array.h \
  ../libs/data_structures/matrix/matrix.c \
  ../libs/data_structures/matrix/matrix.h
+libs/data_structures/CMakeFiles/data_structures.dir/matrix/matrixTest.c.obj: \
+ ../libs/algorithms/algorithm.h \
+ ../libs/algorithms/array/array.h \
+ ../libs/data_structures/matrix/matrix.h \
+ ../libs/data_structures/matrix/matrixTest.c \
+ ../libs/data_structures/matrix/matrixTest.h
