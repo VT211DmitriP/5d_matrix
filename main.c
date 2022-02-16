@@ -589,7 +589,175 @@ void test_isMutuallyInverseMatrices() {
     test_isMutuallyInverseMatrices_matrixFourOnFourProduceIsNotEMatrix();
 }
 
+//__________ task 7 __________\\
 
+int max(int a, int b) {
+    return a > b ? a : b;
+}
+
+int getMaxElementDiagonal(matrix m, int indexRow, int indexCol) {
+    int maxValue = m.values[indexRow][indexCol];
+    while (indexRow < m.nRows && indexCol < m.nCols)
+        maxValue = max(maxValue, m.values[indexRow++][indexCol++]);
+    return maxValue;
+}
+
+long long findSumOfMaxesOfPseudoDiagonal(matrix m) {
+    int sumMAxDiagonal = 0;
+    for (int i = 1; i < m.nRows; i++)
+        sumMAxDiagonal += getMaxElementDiagonal(m, i, 0);
+
+    for (int j = 1; j < m.nCols; j++)
+        sumMAxDiagonal += getMaxElementDiagonal(m, 0, j);
+
+    return sumMAxDiagonal;
+}
+
+void test_findSumOfMaxesOfPseudoDiagonal_positiveHorizontalRectangleMatrix() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    3, 2, 5, 4,
+                    1, 3, 6, 3,
+                    3, 2, 1, 2
+            },
+            3, 4);
+
+    assert(findSumOfMaxesOfPseudoDiagonal(m1) == 20);
+
+    freeMemMatrix(&m1);
+}
+
+void test_findSumOfMaxesOfPseudoDiagonal_negativeHorizontalRectangleMatrix() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    -3, -2, -5, -4,
+                    -1, -3, -6, -3,
+                    -3, -2, -1, -2
+            },
+            3, 4);
+
+    assert(findSumOfMaxesOfPseudoDiagonal(m1) == -3 + -1 + -2 + -3 + -4);
+
+    freeMemMatrix(&m1);
+}
+
+void test_findSumOfMaxesOfPseudoDiagonal_positiveVerticalRectangleMatrix() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    3, 1, 3,
+                    1, 8, 1,
+                    7, 1, 2,
+                    4, 5, 3,
+                    1, 5, 7,
+                    6, 4, 3
+            },
+            6, 3);
+
+    assert(findSumOfMaxesOfPseudoDiagonal(m1) == 6 + 4 + 5 + 7 + 3 + 1 + 3);
+
+    freeMemMatrix(&m1);
+}
+
+void test_findSumOfMaxesOfPseudoDiagonal_negativeVerticalRectangleMatrix() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    -3, -1, -3,
+                    -1, -8, -1,
+                    -7, -1, -2,
+                    -4, -5, -3,
+                    -1, -5, -7,
+                    -6, -4, -3
+            },
+            6, 3);
+
+    assert(findSumOfMaxesOfPseudoDiagonal(m1) == -6 + -1 + -3 + -5 + -1 + -1 + -3);
+
+    freeMemMatrix(&m1);
+}
+
+void test_findSumOfMaxesOfPseudoDiagonal_positiveSquareMatrix() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    3, 1, 3,
+                    1, 8, 1,
+                    7, 1, 2,
+            },
+            3, 3);
+
+    assert(findSumOfMaxesOfPseudoDiagonal(m1) == 7 + 1 + 1 + 3);
+
+    freeMemMatrix(&m1);
+}
+
+void test_findSumOfMaxesOfPseudoDiagonal_negativeSquareMatrix() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    -3, -1, -3,
+                    -1, -8, -1,
+                    -7, -1, -2,
+            },
+            3, 3);
+
+    assert(findSumOfMaxesOfPseudoDiagonal(m1) == -7 + -1 + -1 + -3);
+
+    freeMemMatrix(&m1);
+}
+
+void test_findSumOfMaxesOfPseudoDiagonal_oneCol() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    -3,
+                    1,
+                    -7,
+                    4,
+                    -1,
+                    6
+            },
+            6, 1);
+
+    assert(findSumOfMaxesOfPseudoDiagonal(m1) == 1 + -7 + 4 + -1 + 6);
+
+    freeMemMatrix(&m1);
+}
+
+void test_findSumOfMaxesOfPseudoDiagonal_oneRow() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    -3, 1, -7, 4, -1, 6
+            },
+            1, 6);
+
+    assert(findSumOfMaxesOfPseudoDiagonal(m1) == 1 + -7 + 4 + -1 + 6);
+
+    freeMemMatrix(&m1);
+}
+
+
+void test_findSumOfMaxesOfPseudoDiagonal_oneElem() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    -3
+            },
+            1, 1);
+
+    assert(findSumOfMaxesOfPseudoDiagonal(m1) == 0);
+
+    freeMemMatrix(&m1);
+}
+
+
+void test_findSumOfMaxesOfPseudoDiagonal() {
+    test_findSumOfMaxesOfPseudoDiagonal_positiveHorizontalRectangleMatrix();
+    test_findSumOfMaxesOfPseudoDiagonal_negativeHorizontalRectangleMatrix();
+    test_findSumOfMaxesOfPseudoDiagonal_positiveVerticalRectangleMatrix();
+    test_findSumOfMaxesOfPseudoDiagonal_negativeVerticalRectangleMatrix();
+    test_findSumOfMaxesOfPseudoDiagonal_oneRow();
+    test_findSumOfMaxesOfPseudoDiagonal_oneCol();
+    test_findSumOfMaxesOfPseudoDiagonal_oneElem();
+    test_findSumOfMaxesOfPseudoDiagonal_negativeSquareMatrix();
+    test_findSumOfMaxesOfPseudoDiagonal_positiveSquareMatrix();
+
+}
 
 
 
@@ -601,10 +769,23 @@ void test() {
     test_getSquareOfMatrixIfSymmetric();
     test_transposeIfMatrixHasNotEqualSumOfRows();
     test_isMutuallyInverseMatrices();
+    test_findSumOfMaxesOfPseudoDiagonal();
 }
 
 int main() {
     test();
+
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    3, 2, 5, 4,
+                    1, 3, 6, 3,
+                    3, 2, 1, 2
+            },
+            3, 4);
+
+    findSumOfMaxesOfPseudoDiagonal(m);
+
+
 
     return 0;
 }
