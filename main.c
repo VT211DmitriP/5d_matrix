@@ -1,6 +1,8 @@
 #include "libs/data_structures/matrix/matrix.h"
 #include "libs/data_structures/matrix/matrixTest.h"
 #include <stdlib.h>
+#include <math.h>
+
 //__________ task 1 __________\\
 
 // меняет местами строки матрицы m,
@@ -793,6 +795,7 @@ int getMaxElementDiagonal(matrix m, int indexRow, int indexCol) {
     return maxValue;
 }
 
+// TODO: сделать с использованием доп. памяти
 // возвращает сумму максимальных элементов всех
 // псевдодиагоналей данной матрицы m
 long long findSumOfMaxesOfPseudoDiagonal(matrix m) {
@@ -1092,6 +1095,160 @@ void test_getMinInArea() {
     test_getMinInArea_oneCol();
 }
 
+//__________ task 9 __________\\
+
+float getDistance(int *a, int n) {
+    double distance = 0;
+    for (int i = 0; i < n; i++) {
+        distance += a[i] * a[i];
+    }
+    return sqrt(distance);
+}
+
+void insertionSortRowsMatrixByRowCriteriaF(matrix m, float (*criteria)(int *, int)) {
+    float rowsCriteria[m.nRows];
+    for (int i = 0; i < m.nRows; i++)
+        rowsCriteria[i] = criteria(m.values[i], m.nCols);
+
+    for (int i = 1; i < m.nRows; i++) {
+        for (int j = i; j > 0 && rowsCriteria[j - 1] > rowsCriteria[j]; j--) {
+            swap(&rowsCriteria[j - 1], &rowsCriteria[j], sizeof(float));
+            swapRows(m, j, j - 1);
+        }
+    }
+}
+
+void sortByDistances(matrix m) {
+    insertionSortRowsMatrixByRowCriteriaF(m, getDistance);
+}
+
+void test_sortByDistances_somePoints() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    6, 8, 9, 2,
+                    10, 11, 5, 1,
+                    7, 12, 3, 4
+            },
+            3, 4);
+
+    sortByDistances(m1);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    6, 8, 9, 2,
+                    7, 12, 3, 4,
+                    10, 11, 5, 1
+            },
+            3, 4);
+
+    assert(areTwoMatricesEqual(m1, m2));
+
+    freeMemMatrix(&m1);
+    freeMemMatrix(&m2);
+}
+
+void test_sortByDistances_somePoints2() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    8, 9, 10, 11,
+                    0, 1, 2, 3,
+                    4, 5, 6, 7
+            },
+            3, 4);
+
+    sortByDistances(m1);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    0, 1, 2, 3,
+                    4, 5, 6, 7,
+                    8, 9, 10, 11,
+            },
+            3, 4);
+
+    assert(areTwoMatricesEqual(m1, m2));
+
+    freeMemMatrix(&m1);
+    freeMemMatrix(&m2);
+}
+
+void test_sortByDistances_oneRow() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    8, 9, 10, 11,
+            },
+            1, 4);
+
+    sortByDistances(m1);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    8, 9, 10, 11
+            },
+            1, 4);
+
+    assert(areTwoMatricesEqual(m1, m2));
+
+    freeMemMatrix(&m1);
+    freeMemMatrix(&m2);
+}
+
+void test_sortByDistances_oneCols() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    11,
+                    9,
+                    10,
+                    2
+            },
+            4, 1);
+
+    sortByDistances(m1);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    2,
+                    9,
+                    10,
+                    11
+            },
+            4, 1);
+
+    assert(areTwoMatricesEqual(m1, m2));
+
+    freeMemMatrix(&m1);
+    freeMemMatrix(&m2);
+}
+
+void test_sortByDistances_oneElem() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    2
+            },
+            1, 1);
+
+    sortByDistances(m1);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    2
+            },
+            1, 1);
+
+    assert(areTwoMatricesEqual(m1, m2));
+
+    freeMemMatrix(&m1);
+    freeMemMatrix(&m2);
+}
+
+void test_sortByDistances() {
+    test_sortByDistances_somePoints();
+    test_sortByDistances_somePoints2();
+    test_sortByDistances_oneRow();
+    test_sortByDistances_oneCols();
+    test_sortByDistances_oneElem();
+}
+
 void test() {
     test_swapRowsWithMaxAndMinElement();
     test_sortRowsByMinElement();
@@ -1101,7 +1258,9 @@ void test() {
     test_isMutuallyInverseMatrices();
     test_findSumOfMaxesOfPseudoDiagonal();
     test_getMinInArea();
+    test_sortByDistances();
 }
+
 
 int main() {
     testMatrix();

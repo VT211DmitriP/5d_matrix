@@ -78,6 +78,9 @@ bool isSymmetricMatrix(matrix m);
 //матрицу m
 void transposeSquareMatrix(matrix m);
 
+// транспонирует матрицу m
+matrix transposeMatrix(matrix m);
+
 // возвращает позицию минимального элемента матрицы m
 position getMinValuePos(matrix m);
 
@@ -92,5 +95,6 @@ matrix createMatrixFromArray(const int *a, int nRows, int nCols);
 // возвращает указатель на нулевую матрицу размера nRows на nCols массива из nMatrices матриц, размещенных
 //в динамической памяти, построенных из элементов массива values.
 matrix *createArrayOfMatrixFromArray(const int *values, int nMatrices, int nRows, int nCols);
+
 
 #endif

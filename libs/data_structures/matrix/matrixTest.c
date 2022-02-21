@@ -523,6 +523,8 @@ void test_getMaxValuePos() {
     test_getMaxValuePos_rectangle();
 }
 
+
+
 void testMatrix() {
     test_isSymmetricMatrix();
     test_twoMatricesEqual();
