@@ -1613,7 +1613,7 @@ void test_swapPenultimateRow() {
 
 //__________ task 13 __________\\
 
-bool isNonDescendingSorted(const int *a, int n) {
+bool isNonDescendingSorted(int *a, int n) {
     for (int i = 1; i < n; i++) {
         if (a[i - 1] > a[i])
             return false;
@@ -1755,6 +1755,132 @@ void test_countNonDescendingRowsMatrices() {
 
 //__________ task 14 __________\\
 
+int countValues(const int *a, int n, int value) {
+    int count = 0;
+    for (int i = 0; i < n; i++) {
+        if (a[i] == value)
+            count += 1;
+    }
+    return count;
+}
+
+int countZeroRows(matrix m) {
+    int countZero = 0;
+    for (int i = 0; i < m.nRows; i++) {
+        int isZeroRows = countValues(m.values[i], m.nCols, 0) == m.nCols;
+        if (isZeroRows)
+            countZero += 1;
+    }
+    return countZero;
+}
+
+void printMatrixWithMaxZeroRows(matrix *ms, int nMatrix) {
+    int arrayMaxZeroRows[nMatrix];
+    for (int i = 0; i < nMatrix; i++) {
+        arrayMaxZeroRows[i] = countZeroRows(ms[i]);
+    }
+
+    int maxZeroRows = getMax(arrayMaxZeroRows, nMatrix);
+
+    for (int i = 0; i < nMatrix; i++) {
+        if (arrayMaxZeroRows[i] == maxZeroRows) {
+            outputMatrix(ms[i]);
+            printf("\n");
+        }
+    }
+}
+
+void test_countZeroRows_rectangleMatrix() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    0, 0, 0,
+                    4, 0, 1,
+                    7, 0, 0,
+                    0, 0, 0
+            },
+            4, 3);
+
+    assert(countZeroRows(m) == 2);
+
+    freeMemMatrix(&m);
+}
+
+void test_countZeroRows_squareZeroMatrix() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    0, 0, 0,
+                    0, 0, 0,
+                    0, 0, 0,
+            },
+            3, 3);
+
+    assert(countZeroRows(m) == 3);
+
+    freeMemMatrix(&m);
+}
+
+void test_countZeroRows_oneRow() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    0,
+                    0,
+                    1
+            },
+            3, 1);
+
+    assert(countZeroRows(m) == 2);
+
+    freeMemMatrix(&m);
+}
+
+void test_countZeroRows_oneCol() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    0, 0, 1
+            },
+            1, 3);
+
+    assert(countZeroRows(m) == 0);
+
+    freeMemMatrix(&m);
+}
+
+void test_countZeroRows_oneColZero() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    0, 0, 0
+            },
+            1, 3);
+
+    assert(countZeroRows(m) == 1);
+
+    freeMemMatrix(&m);
+}
+
+void test_countZeroRows_oneElem() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    0
+            },
+            1, 1);
+
+    assert(countZeroRows(m) == 1);
+
+    freeMemMatrix(&m);
+}
+
+void test_countZeroRows() {
+    test_countZeroRows_rectangleMatrix();
+    test_countZeroRows_squareZeroMatrix();
+    test_countZeroRows_oneRow();
+    test_countZeroRows_oneCol();
+    test_countZeroRows_oneColZero();
+    test_countZeroRows_oneElem();
+}
+
+//__________ task 15 __________\\
+
+
 
 void test() {
     test_swapRowsWithMaxAndMinElement();
@@ -1770,6 +1896,7 @@ void test() {
     test_getNSpecialElement();
     test_swapPenultimateRow();
     test_countNonDescendingRowsMatrices();
+    test_countZeroRows();
 }
 
 int main() {
