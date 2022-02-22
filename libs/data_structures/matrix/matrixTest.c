@@ -478,7 +478,7 @@ void test_getMinValuePos_squareLastELemIsMin() {
             3, 3);
 
     position minPos = getMinValuePos(m1);
-    assert(minPos.rowIndex == 2 && minPos.rowIndex == 2);
+    assert(minPos.rowIndex == 2 && minPos.colIndex == 2);
 
     freeMemMatrix(&m1);
 }
@@ -513,7 +513,7 @@ void test_getMaxValuePos_squareLastELemIsMax() {
             3, 3);
 
     position maxPos = getMaxValuePos(m1);
-    assert(maxPos.rowIndex == 2 && maxPos.rowIndex == 2);
+    assert(maxPos.rowIndex == 2 && maxPos.colIndex == 2);
 
     freeMemMatrix(&m1);
 }

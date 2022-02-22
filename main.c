@@ -1475,6 +1475,143 @@ void test_getNSpecialElement() {
     test_getNSpecialElement_oneCol();
 }
 
+//__________ task 12 __________\\
+
+position getLeftMin(matrix m) {
+    int minValue = m.values[0][0];
+    position minPosition = {0, 0};
+
+    for (int i = 0; i < m.nCols; i++) {
+        for (int j = 0; j < m.nRows; j++) {
+            if (m.values[j][i] < minValue) {
+                minValue = m.values[j][i];
+                minPosition.rowIndex = j;
+                minPosition.colIndex = i;
+            }
+        }
+    }
+    return minPosition;
+}
+
+void swapPenultimateRow(matrix m) {
+    position minPos = getLeftMin(m);
+
+    int arrayMinCol[m.nCols];
+    for (int i = 0; i < m.nCols; i++) {
+        arrayMinCol[i] = m.values[i][minPos.colIndex];
+    }
+
+    for (int i = 0; i < m.nRows; i++) {
+        m.values[m.nRows - 2][i] = arrayMinCol[i];
+    }
+}
+
+void test_swapPenultimateRow_squareMatrix() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3,
+                    4, 5, 6,
+                    7, 8, 1,
+            },
+            3, 3);
+
+    swapPenultimateRow(m1);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3,
+                    1, 4, 7,
+                    7, 8, 1,
+            },
+            3, 3);
+
+    assert(areTwoMatricesEqual(m1, m2));
+
+    freeMemMatrix(&m1);
+    freeMemMatrix(&m2);
+}
+
+void test_swapPenultimateRow_twoRows() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    1, 2,
+                    4, 5
+            },
+            2, 2);
+
+    swapPenultimateRow(m1);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    1, 4,
+                    4, 5
+            },
+            2, 2);
+
+    assert(areTwoMatricesEqual(m1, m2));
+
+    freeMemMatrix(&m1);
+    freeMemMatrix(&m2);
+}
+
+void test_swapPenultimateRow_someMinimums() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    4, 2, 1,
+                    4, 5, 4,
+                    1, 6, 7
+            },
+            3, 3);
+
+    swapPenultimateRow(m1);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    4, 2, 1,
+                    4, 4, 1,
+                    1, 6, 7
+            },
+            3, 3);
+
+    assert(areTwoMatricesEqual(m1, m2));
+
+    freeMemMatrix(&m1);
+    freeMemMatrix(&m2);
+}
+
+void test_swapPenultimateRow_EMatrix() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    1, 0, 0,
+                    0, 1, 0,
+                    0, 0, 1
+            },
+            3, 3);
+
+    swapPenultimateRow(m1);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    1, 0, 0,
+                    1, 0, 0,
+                    0, 0, 1
+            },
+            3, 3);
+
+    assert(areTwoMatricesEqual(m1, m2));
+
+    freeMemMatrix(&m1);
+    freeMemMatrix(&m2);
+}
+
+void test_swapPenultimateRow() {
+    test_swapPenultimateRow_squareMatrix();
+    test_swapPenultimateRow_twoRows();
+    test_swapPenultimateRow_someMinimums();
+    test_swapPenultimateRow_EMatrix();
+}
+
+
 void test() {
     test_swapRowsWithMaxAndMinElement();
     test_sortRowsByMinElement();
@@ -1487,7 +1624,12 @@ void test() {
     test_sortByDistances();
     test_countEqClassesByRowsSum();
     test_getNSpecialElement();
+    test_swapPenultimateRow();
 }
+
+//__________ task 13 __________\\
+
+
 
 int main() {
     testMatrix();
