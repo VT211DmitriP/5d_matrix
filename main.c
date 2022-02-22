@@ -1312,7 +1312,7 @@ void test_countEqClassesByRowsSum_horizontalRectangleMatrix() {
     freeMemMatrix(&m1);
 }
 
-void test_countEqClassesByRowsSum_onRow() {
+void test_countEqClassesByRowsSum_oneRow() {
     matrix m1 = createMatrixFromArray(
             (int[]) {
                     7, 1, 2, 7,
@@ -1324,7 +1324,7 @@ void test_countEqClassesByRowsSum_onRow() {
     freeMemMatrix(&m1);
 }
 
-void test_countEqClassesByRowsSum_onCol() {
+void test_countEqClassesByRowsSum_oneCol() {
     matrix m1 = createMatrixFromArray(
             (int[]) {
                     7,
@@ -1339,7 +1339,7 @@ void test_countEqClassesByRowsSum_onCol() {
     freeMemMatrix(&m1);
 }
 
-void test_countEqClassesByRowsSum_onElem() {
+void test_countEqClassesByRowsSum_oneElem() {
     matrix m1 = createMatrixFromArray(
             (int[]) {
                     7
@@ -1354,13 +1354,126 @@ void test_countEqClassesByRowsSum_onElem() {
 void test_countEqClassesByRowsSum() {
     test_countEqClassesByRowsSum_verticalRectangleMatrix();
     test_countEqClassesByRowsSum_horizontalRectangleMatrix();
-    test_countEqClassesByRowsSum_onRow();
-    test_countEqClassesByRowsSum_onCol();
-    test_countEqClassesByRowsSum_onElem();
+    test_countEqClassesByRowsSum_oneRow();
+    test_countEqClassesByRowsSum_oneCol();
+    test_countEqClassesByRowsSum_oneElem();
 
 }
 
 
+//__________ task 11 __________\\
+
+int getNSpecialElement(matrix m) {
+    int countSpecialElement = 0;
+    for (int i = 0; i < m.nCols; i++) {
+        int specialElement = m.values[0][i];
+        long long sumSpecialElement = specialElement;
+        for (int j = 1; j < m.nRows; j++) {
+            if (specialElement < m.values[j][i])
+                specialElement = m.values[j][i];
+            sumSpecialElement += m.values[j][i];
+        }
+        int isSpecial = sumSpecialElement - specialElement < specialElement;
+        if (isSpecial)
+            countSpecialElement += 1;
+    }
+    return countSpecialElement;
+}
+
+void test_getNSpecialElement_rectangleMatrix() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    3, 5, 5, 4,
+                    2, 3, 6, 7,
+                    12, 2, 1, 2
+            },
+            3, 4);
+
+    assert(getNSpecialElement(m1) == 2);
+
+    freeMemMatrix(&m1);
+}
+
+void test_getNSpecialElement_rectangleMatrixHasNotSpecial() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    3, 5, 5, 4,
+                    2, 3, 6, 4,
+                    1, 2, 1, 2
+            },
+            3, 4);
+
+    assert(getNSpecialElement(m1) == 0);
+
+    freeMemMatrix(&m1);
+}
+
+void test_getNSpecialElement_rectangleVerticalMatrixHasNotSpecial() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    3, 5, 5,
+                    4, 2, 3,
+                    6, 4, 1,
+                    2, 1, 2
+            },
+            4, 3);
+
+    assert(getNSpecialElement(m1) == 0);
+
+    freeMemMatrix(&m1);
+}
+
+void test_getNSpecialElement_allElementsEqual() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    5, 5, 5,
+                    5, 5, 5,
+                    5, 5, 5,
+                    5, 5, 5
+            },
+            4, 3);
+
+    assert(getNSpecialElement(m1) == 0);
+
+    freeMemMatrix(&m1);
+}
+
+void test_getNSpecialElement_oneRow() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    1,
+                    2,
+                    3,
+                    7
+            },
+            4, 1);
+
+    assert(getNSpecialElement(m1) == 1);
+
+    freeMemMatrix(&m1);
+}
+
+void test_getNSpecialElement_oneCol() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3, 7
+            },
+            1, 4);
+
+    assert(getNSpecialElement(m1) == 4);
+
+    freeMemMatrix(&m1);
+}
+
+
+void test_getNSpecialElement() {
+    test_getNSpecialElement_rectangleMatrix();
+    test_getNSpecialElement_rectangleMatrixHasNotSpecial();
+    test_getNSpecialElement_rectangleVerticalMatrixHasNotSpecial();
+    test_getNSpecialElement_allElementsEqual();
+    test_getNSpecialElement_oneRow();
+    test_getNSpecialElement_oneCol();
+}
 
 void test() {
     test_swapRowsWithMaxAndMinElement();
@@ -1373,8 +1486,8 @@ void test() {
     test_getMinInArea();
     test_sortByDistances();
     test_countEqClassesByRowsSum();
+    test_getNSpecialElement();
 }
-
 
 int main() {
     testMatrix();
