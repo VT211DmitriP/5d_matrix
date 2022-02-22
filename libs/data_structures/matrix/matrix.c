@@ -10,7 +10,6 @@ matrix getMemMatrix(int nRows, int nCols) {
     return (matrix) {values, nRows, nCols};
 }
 
-
 matrix *getMemArrayOfMatrices(int nMatrices, int nRows, int nCols) {
     matrix *ms = (matrix *) malloc(sizeof(matrix) * nMatrices);
     for (int i = 0; i < nMatrices; i++)
@@ -23,7 +22,6 @@ void freeMemMatrix(matrix *m) {
         free(m->values[i]);
     free(m->values);
 }
-
 
 void freeMemMatrices(matrix *ms, int nMatrices) {
     for (int i = 0; i < nMatrices; i++)
@@ -107,7 +105,6 @@ void insertionSortColsMatrixByColCriteria(matrix m, int (*criteria)(int *, int))
     }
 }
 
-
 bool isSquareMatrix(matrix m) {
     return m.nRows == m.nCols;
 }
@@ -157,7 +154,6 @@ void transposeSquareMatrix(matrix m) {
     }
 }
 
-// TODO: дописать тесты
 matrix transposeMatrix(matrix m) {
     matrix m1 = getMemMatrix(m.nCols, m.nRows);
 
@@ -168,7 +164,6 @@ matrix transposeMatrix(matrix m) {
     }
     return (matrix) m1;
 }
-
 
 position getMinValuePos(matrix m) {
     int minValue = m.values[0][0];
@@ -223,4 +218,22 @@ matrix *createArrayOfMatrixFromArray(const int *values, int nMatrices, int nRows
                 ms[k].values[i][j] = values[l++];
 
     return ms;
+}
+
+matrix mulMatrices(matrix m1, matrix m2) {
+    if (m1.nCols != m2.nRows) {
+        fprintf(stderr, "multiplication is not possible");
+        exit(1);
+    }
+
+    matrix mulMatrix = getMemMatrix(m1.nRows, m2.nCols);
+    for (int i = 0; i < m1.nRows; i++) {
+        for (int j = 0; j < m2.nCols; j++) {
+            mulMatrix.values[i][j] = 0;
+            for (int k = 0; k < m2.nRows; k++) {
+                mulMatrix.values[i][j] += m1.values[i][k] * m2.values[k][j];
+            }
+        }
+    }
+    return mulMatrix;
 }

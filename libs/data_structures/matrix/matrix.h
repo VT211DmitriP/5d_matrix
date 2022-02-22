@@ -96,5 +96,7 @@ matrix createMatrixFromArray(const int *a, int nRows, int nCols);
 //в динамической памяти, построенных из элементов массива values.
 matrix *createArrayOfMatrixFromArray(const int *values, int nMatrices, int nRows, int nCols);
 
+// возвращает произведение матрицы m1 на матрицу m2
+matrix mulMatrices(matrix m1, matrix m2);
 
 #endif

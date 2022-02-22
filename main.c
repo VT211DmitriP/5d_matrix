@@ -332,26 +332,6 @@ void test_sortColsByMinElement() {
 
 //__________ task 4 __________\\
 
-// TODO: перенести в библу
-// возвращает произведение матрицы m1 на матрицу m2
-matrix mulMatrices(matrix m1, matrix m2) {
-    if (m1.nCols != m2.nRows) {
-        fprintf(stderr, "multiplication is not possible");
-        exit(1);
-    }
-
-    matrix mulMatrix = getMemMatrix(m1.nRows, m2.nCols);
-    for (int i = 0; i < m1.nRows; i++) {
-        for (int j = 0; j < m2.nCols; j++) {
-            mulMatrix.values[i][j] = 0;
-            for (int k = 0; k < m2.nRows; k++) {
-                mulMatrix.values[i][j] += m1.values[i][k] * m2.values[k][j];
-            }
-        }
-    }
-    return mulMatrix;
-}
-
 // Если данная квадратная матрица m симметрична, то заменяет m ее квадратом m^2
 void getSquareOfMatrixIfSymmetric(matrix *m) {
     if (isSymmetricMatrix(*m))
@@ -796,7 +776,7 @@ int getMaxElementDiagonal(matrix m, int indexRow, int indexCol) {
     return maxValue;
 }
 
-// TODO: сделать с использованием доп. памяти
+// к сожалению, сам не смог переделать с использованием доп. памяти
 // возвращает сумму максимальных элементов всех
 // псевдодиагоналей данной матрицы m
 long long findSumOfMaxesOfPseudoDiagonal(matrix m) {
@@ -1098,6 +1078,7 @@ void test_getMinInArea() {
 
 //__________ task 9 __________\\
 
+// возвращает расстояние до начала координат массива a размера n
 float getDistance(int *a, int n) {
     double distance = 0;
     for (int i = 0; i < n; i++) {
@@ -1106,6 +1087,8 @@ float getDistance(int *a, int n) {
     return sqrt(distance);
 }
 
+// выполняет сортировку вставками строк матрицы m по неубыванию
+// значения функции criteria применяемой для строк
 void insertionSortRowsMatrixByRowCriteriaF(matrix m, float (*criteria)(int *, int)) {
     float rowsCriteria[m.nRows];
     for (int i = 0; i < m.nRows; i++)
@@ -1119,6 +1102,8 @@ void insertionSortRowsMatrixByRowCriteriaF(matrix m, float (*criteria)(int *, in
     }
 }
 
+// сортирует точки матрицы m по неубыванию их
+//расстояний до начала координат
 void sortByDistances(matrix m) {
     insertionSortRowsMatrixByRowCriteriaF(m, getDistance);
 }
@@ -1262,6 +1247,7 @@ int cmp_long_long(const void *pa, const void *pb) {
     return 0;
 }
 
+// возвращает количество неуникальных элементов массива a размера n
 int countNUnique(long long *a, int n) {
     qsort(a, n, sizeof(long long), cmp_long_long);
 
@@ -1273,6 +1259,7 @@ int countNUnique(long long *a, int n) {
     return nUniqueTotal;
 }
 
+// возвращает количество классов эквивалентных строк данной прямоугольной матрицы m
 int countEqClassesByRowsSum(matrix m) {
     long long arraySum[m.nRows];
     for (int i = 0; i < m.nRows; i++) {
@@ -1364,6 +1351,7 @@ void test_countEqClassesByRowsSum() {
 
 //__________ task 11 __________\\
 
+// возвращает количество особых элементов матрицы m
 int getNSpecialElement(matrix m) {
     int countSpecialElement = 0;
     for (int i = 0; i < m.nCols; i++) {
@@ -1478,6 +1466,7 @@ void test_getNSpecialElement() {
 
 //__________ task 12 __________\\
 
+// возвращает позицию первого минимального элемента в строке матрицы m
 position getLeftMin(matrix m) {
     int minValue = m.values[0][0];
     position minPosition = {0, 0};
@@ -1494,6 +1483,8 @@ position getLeftMin(matrix m) {
     return minPosition;
 }
 
+// заменяет предпоследнюю строку матрицы первым
+//из столбцов, в котором находится минимальный элемент матрицы
 void swapPenultimateRow(matrix m) {
     position minPos = getLeftMin(m);
 
@@ -1614,6 +1605,7 @@ void test_swapPenultimateRow() {
 
 //__________ task 13 __________\\
 
+// возвращает 'истина', если массив a размера n отсортирован по неубыванию, иначе 'ложь'
 bool isNonDescendingSorted(int *a, int n) {
     for (int i = 1; i < n; i++) {
         if (a[i - 1] > a[i])
@@ -1622,6 +1614,7 @@ bool isNonDescendingSorted(int *a, int n) {
     return true;
 }
 
+// возвращает 'истина', если все элементы строки матрицы m отсортированы по неубыванию, иначе 'ложь'
 bool hasAllNonDescendingRows(matrix m) {
     for (int i = 0; i < m.nRows; i++) {
         int isSorted = isNonDescendingSorted(m.values[i], m.nCols);
@@ -1631,6 +1624,8 @@ bool hasAllNonDescendingRows(matrix m) {
     return true;
 }
 
+// возвращает количество матриц, строки которых упорядочены по неубыванию элементов
+// массива ms размера nMatrix
 int countNonDescendingRowsMatrices(matrix *ms, int nMatrix) {
     int countNonDescendingRows = 0;
     for (int i = 0; i < nMatrix; i++) {
@@ -1756,6 +1751,7 @@ void test_countNonDescendingRowsMatrices() {
 
 //__________ task 14 __________\\
 
+// возвращает количество элементов массива a размера n равных value
 int countValues(const int *a, int n, int value) {
     int count = 0;
     for (int i = 0; i < n; i++) {
@@ -1765,6 +1761,7 @@ int countValues(const int *a, int n, int value) {
     return count;
 }
 
+// возвращает количество нулевых строк матрицы m
 int countZeroRows(matrix m) {
     int countZero = 0;
     for (int i = 0; i < m.nRows; i++) {
@@ -1775,6 +1772,8 @@ int countZeroRows(matrix m) {
     return countZero;
 }
 
+// выводит матрицы, имеющие наибольшее
+//число нулевых строк массива матриц ms размера nMatrix
 void printMatrixWithMaxZeroRows(matrix *ms, int nMatrix) {
     int arrayZeroRows[nMatrix];
     for (int i = 0; i < nMatrix; i++) {
@@ -1881,6 +1880,7 @@ void test_countZeroRows() {
 
 //__________ task 15 __________\\
 
+// возвращает норму матрицы m
 int getNorm(matrix m) {
     int normElement = abs(m.values[0][0]);
 
@@ -1893,6 +1893,7 @@ int getNorm(matrix m) {
     return normElement;
 }
 
+// выводит матрицы с наименьшей нормой массива матриц ms размера nMatrix
 void printMatrixWithMinNorm(matrix *ms, int nMatrix) {
     int arrayNormElement[nMatrix];
     for (int i = 0; i < nMatrix; i++) {
@@ -2019,7 +2020,6 @@ void test() {
 int main() {
     testMatrix();
     test();
-
 
     return 0;
 }
