@@ -515,7 +515,7 @@ void transposeIfMatrixHasNotEqualSumOfRows(matrix m) {
     for (int i = 0; i < m.nRows; i++)
         sumColsElement[i] = getSum(m.values[i], m.nCols);
 
-    if(isUnique(sumColsElement, m.nRows)) {
+    if (isUnique(sumColsElement, m.nRows)) {
         transposeSquareMatrix(m);
     }
 }
@@ -973,11 +973,11 @@ int getMinInArea(matrix m) {
 
     int left = startPosition.colIndex;
     int right = startPosition.colIndex;
-    for (int i = startPosition.rowIndex - 1; i >= 0 ; i--) {
+    for (int i = startPosition.rowIndex - 1; i >= 0; i--) {
         left = left > 0 ? left - 1 : left;
         right = right < m.nCols ? right + 1 : right;
 
-        minElement = min(minElement, getMin(&m.values[i][left], right -left));
+        minElement = min(minElement, getMin(&m.values[i][left], right - left));
     }
     return minElement;
 }
@@ -1249,6 +1249,119 @@ void test_sortByDistances() {
     test_sortByDistances_oneElem();
 }
 
+//__________ task 10 __________\\
+
+int cmp_long_long(const void *pa, const void *pb) {
+    long long arg1 = *(const long long *) pa;
+    long long arg2 = *(const long long *) pb;
+
+
+    if (arg1 < arg2) return -1;
+    if (arg1 > arg2) return 1;
+    return 0;
+}
+
+int countNUnique(long long *a, int n) {
+    qsort(a, n, sizeof(long long), cmp_long_long);
+
+    int nUniqueTotal = 1;
+    for (int i = 1; i < n; i++) {
+        if (a[i - 1] != a[i])
+            nUniqueTotal += 1;
+    }
+    return nUniqueTotal;
+}
+
+int countEqClassesByRowsSum(matrix m) {
+    long long arraySum[m.nRows];
+    for (int i = 0; i < m.nRows; i++) {
+        arraySum[i] = getSum(m.values[i], m.nCols);
+    }
+
+    return countNUnique(arraySum, m.nRows);
+}
+
+void test_countEqClassesByRowsSum_verticalRectangleMatrix() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    7, 1,
+                    2, 7,
+                    5, 4,
+                    4, 3,
+                    1, 6,
+                    8, 0
+            },
+            6, 2);
+
+    assert(countEqClassesByRowsSum(m1) == 3);
+
+    freeMemMatrix(&m1);
+}
+
+void test_countEqClassesByRowsSum_horizontalRectangleMatrix() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    7, 1, 2, 7,
+                    5, 4, 4, 4,
+                    1, 6, 8, 2
+            },
+            3, 4);
+
+    assert(countEqClassesByRowsSum(m1) == 1);
+
+    freeMemMatrix(&m1);
+}
+
+void test_countEqClassesByRowsSum_onRow() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    7, 1, 2, 7,
+            },
+            1, 4);
+
+    assert(countEqClassesByRowsSum(m1) == 1);
+
+    freeMemMatrix(&m1);
+}
+
+void test_countEqClassesByRowsSum_onCol() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    7,
+                    1,
+                    2,
+                    5
+            },
+            4, 1);
+
+    assert(countEqClassesByRowsSum(m1) == 4);
+
+    freeMemMatrix(&m1);
+}
+
+void test_countEqClassesByRowsSum_onElem() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    7
+            },
+            1, 1);
+
+    assert(countEqClassesByRowsSum(m1) == 1);
+
+    freeMemMatrix(&m1);
+}
+
+void test_countEqClassesByRowsSum() {
+    test_countEqClassesByRowsSum_verticalRectangleMatrix();
+    test_countEqClassesByRowsSum_horizontalRectangleMatrix();
+    test_countEqClassesByRowsSum_onRow();
+    test_countEqClassesByRowsSum_onCol();
+    test_countEqClassesByRowsSum_onElem();
+
+}
+
+
+
 void test() {
     test_swapRowsWithMaxAndMinElement();
     test_sortRowsByMinElement();
@@ -1259,6 +1372,7 @@ void test() {
     test_findSumOfMaxesOfPseudoDiagonal();
     test_getMinInArea();
     test_sortByDistances();
+    test_countEqClassesByRowsSum();
 }
 
 
