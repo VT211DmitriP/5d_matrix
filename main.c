@@ -332,6 +332,7 @@ void test_sortColsByMinElement() {
 
 //__________ task 4 __________\\
 
+// TODO: перенести в библу
 // возвращает произведение матрицы m1 на матрицу m2
 matrix mulMatrices(matrix m1, matrix m2) {
     if (m1.nCols != m2.nRows) {
@@ -1775,15 +1776,15 @@ int countZeroRows(matrix m) {
 }
 
 void printMatrixWithMaxZeroRows(matrix *ms, int nMatrix) {
-    int arrayMaxZeroRows[nMatrix];
+    int arrayZeroRows[nMatrix];
     for (int i = 0; i < nMatrix; i++) {
-        arrayMaxZeroRows[i] = countZeroRows(ms[i]);
+        arrayZeroRows[i] = countZeroRows(ms[i]);
     }
 
-    int maxZeroRows = getMax(arrayMaxZeroRows, nMatrix);
+    int maxZeroRows = getMax(arrayZeroRows, nMatrix);
 
     for (int i = 0; i < nMatrix; i++) {
-        if (arrayMaxZeroRows[i] == maxZeroRows) {
+        if (arrayZeroRows[i] == maxZeroRows) {
             outputMatrix(ms[i]);
             printf("\n");
         }
@@ -1880,7 +1881,122 @@ void test_countZeroRows() {
 
 //__________ task 15 __________\\
 
+int getNorm(matrix m) {
+    int normElement = abs(m.values[0][0]);
 
+    for (int i = 0; i < m.nRows; i++) {
+        for (int j = 0; j < m.nCols; j++) {
+            if (normElement < abs(m.values[i][j]))
+                normElement = abs(m.values[i][j]);
+        }
+    }
+    return normElement;
+}
+
+void printMatrixWithMinNorm(matrix *ms, int nMatrix) {
+    int arrayNormElement[nMatrix];
+    for (int i = 0; i < nMatrix; i++) {
+        arrayNormElement[i] = getNorm(ms[i]);
+    }
+
+    int minNormElement = getMin(arrayNormElement, nMatrix);
+
+    for (int i = 0; i < nMatrix; i++) {
+        if (arrayNormElement[i] == minNormElement) {
+            outputMatrix(ms[i]);
+            printf("\n");
+        }
+    }
+}
+
+void test_getMatrixNorm_rectangleMatrix() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    1, -7, 11,
+                    4, 13, 10,
+                    7, -17, 16,
+                    12, 1, -56
+            },
+            4, 3);
+
+    assert(getNorm(m) == 56);
+
+    freeMemMatrix(&m);
+}
+
+void test_getMatrixNorm_squareZeroMatrix() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    0, 0, 0,
+                    0, 0, 0,
+                    0, 0, 0,
+            },
+            3, 3);
+
+    assert(getNorm(m) == 0);
+
+    freeMemMatrix(&m);
+}
+
+void test_getMatrixNorm_oneRow() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    2,
+                    0,
+                    1
+            },
+            3, 1);
+
+    assert(getNorm(m) == 2);
+
+    freeMemMatrix(&m);
+}
+
+void test_getMatrixNorm_oneCol() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    0, 0, 1
+            },
+            1, 3);
+
+    assert(getNorm(m) == 1);
+
+    freeMemMatrix(&m);
+}
+
+void test_getMatrixNorm_oneColZero() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    0, 1, -12
+            },
+            1, 3);
+
+    assert(getNorm(m) == 12);
+
+    freeMemMatrix(&m);
+}
+
+void test_getMatrixNorm_oneElem() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    -12
+            },
+            1, 1);
+
+    assert(getNorm(m) == 12);
+
+    freeMemMatrix(&m);
+}
+
+void test_getMatrixNorm() {
+    test_getMatrixNorm_rectangleMatrix();
+    test_getMatrixNorm_oneElem();
+    test_getMatrixNorm_oneColZero();
+    test_getMatrixNorm_oneRow();
+    test_getMatrixNorm_squareZeroMatrix();
+    test_getMatrixNorm_oneCol();
+
+}
 
 void test() {
     test_swapRowsWithMaxAndMinElement();
@@ -1897,11 +2013,13 @@ void test() {
     test_swapPenultimateRow();
     test_countNonDescendingRowsMatrices();
     test_countZeroRows();
+    test_getMatrixNorm();
 }
 
 int main() {
     testMatrix();
     test();
+
 
     return 0;
 }
