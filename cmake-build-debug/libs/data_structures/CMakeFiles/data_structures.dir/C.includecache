@@ -14,6 +14,16 @@ D:/5d_matrix/libs/algorithms/array/array.h
 stddef.h
 -
 
+D:/5d_matrix/libs/data_structures/matrix/matrix.c
+stdio.h
+-
+malloc.h
+-
+memory.h
+-
+matrix.h
+D:/5d_matrix/libs/data_structures/matrix/matrix.h
+
 D:/5d_matrix/libs/data_structures/matrix/matrix.h
 stdbool.h
 -
@@ -25,18 +35,4 @@ assert.h
 D:/5d_matrix/libs/algorithms/algorithm.h
 ../../algorithms/array/array.h
 D:/5d_matrix/libs/algorithms/array/array.h
-
-D:/5d_matrix/libs/data_structures/matrix/matrixTest.c
-matrix.h
-D:/5d_matrix/libs/data_structures/matrix/matrix.h
-matrixTest.h
-D:/5d_matrix/libs/data_structures/matrix/matrixTest.h
-../../algorithms/algorithm.h
-D:/5d_matrix/libs/algorithms/algorithm.h
-assert.h
--
-stdio.h
--
-
-D:/5d_matrix/libs/data_structures/matrix/matrixTest.h
 
